@@ -1,0 +1,104 @@
+/* styles.css */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 10vw;
+  background-color: #0f172a;
+  color: #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav .left {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #38bdf8; /* light blue accent */
+  font-family: "Exo 2";
+  text-transform: uppercase;
+}
+
+.nav .right ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav .right ul li {
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+  position: relative;
+  font-weight: 600;
+}
+
+.nav .right ul li a {
+  text-decoration: none;
+  color: #f1f5f9; /* Default link color */
+  transition: color 0.3s ease;
+}
+
+.nav .right ul li a:hover {
+  color: #38bdf8;
+}
+
+.nav .right ul li:hover {
+  transform: translateY(-2px);
+}
+
+.nav .right ul li::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2.5px;
+  bottom: -4px;
+  left: 0;
+  background-color: #38bdf8;
+  transition: width 0.3s ease;
+}
+
+.nav .right ul li:hover::after {
+  width: 100%;
+}
+
+.bars {
+  display: none;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.bars:hover {
+  color: #58a6ff;
+}
+
+/* Responsive Design - Mobile View */
+@media (max-width: 600px) {
+  .nav .right {
+    display: none; /* Hide the menu on mobile screens */
+    position: absolute;
+    right: 0;
+    top: 4rem;
+    background-color: #112240;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav .right.active {
+    display: block; /* Show the menu when active */
+  }
+
+  .nav .right ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav .right ul li {
+    margin: 0.8rem 0;
+  }
+
+  .bars {
+    display: block; /* Show the hamburger icon */
+  }
+}
