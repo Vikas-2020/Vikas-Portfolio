@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css"; // Import AOS styles
+import "aos/dist/aos.css";
+import emailjs from "emailjs-com";
 
 const Contact = ({ isMenuOpen, setIsMenuOpen }) => {
   const [formData, setFormData] = useState({
@@ -10,32 +11,43 @@ const Contact = ({ isMenuOpen, setIsMenuOpen }) => {
   });
 
   useEffect(() => {
-    // Initialize AOS
     AOS.init({
-      duration: 1000, // Duration of the animation
-      easing: "ease-in-out", // Easing function
-      once: true, // Trigger animation only once
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
     });
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can handle form submission (e.g., send the data to a server)
-    console.log(formData);
-    alert("Form submitted!");
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
+
+    // Send email using EmailJS
+    emailjs
+      .send(
+        "service_316fu9e",
+        "template_etxiz4d",
+        formData,
+        "gVMyltbFAkjzLInon"
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          alert("Message sent successfully!");
+          setFormData({ name: "", email: "", message: "" });
+        },
+        (error) => {
+          console.error("FAILED...", error);
+          alert("Failed to send message. Please try again.");
+        }
+      );
   };
 
   return (
@@ -48,6 +60,7 @@ const Contact = ({ isMenuOpen, setIsMenuOpen }) => {
             type="text"
             id="name"
             name="name"
+            placeholder="Enter full name"
             value={formData.name}
             onChange={handleChange}
             required
@@ -59,6 +72,7 @@ const Contact = ({ isMenuOpen, setIsMenuOpen }) => {
             type="email"
             id="email"
             name="email"
+            placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
             required
@@ -69,6 +83,7 @@ const Contact = ({ isMenuOpen, setIsMenuOpen }) => {
           <textarea
             id="message"
             name="message"
+            placeholder="Write your message here..."
             value={formData.message}
             onChange={handleChange}
             required

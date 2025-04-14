@@ -19,6 +19,8 @@ import Projects from './components/Projects';
 import './css/contact.css'
 import Contact from './components/Contact';
 
+import './css/footer.css';
+import Footer from './components/Footer';
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
@@ -29,6 +31,7 @@ function App() {
       <Skills isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
       <Projects isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
       <Contact isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
+      <Footer />
     </>
   )
 }
